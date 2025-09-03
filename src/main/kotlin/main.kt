@@ -1,7 +1,15 @@
-﻿import number.Numbers
+﻿import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import number.Numbers
 import operators.Operators
 
-fun main() {
+suspend fun printMessage(message: String) {
+    delay(5000L)
+    println(message)
+}
+
+fun main() = runBlocking {
 
     val math = Numbers()
     val num1 = math.createNumbers(1, 10)
@@ -12,7 +20,12 @@ fun main() {
     var i = 0
     while (true) {
 
-        i += 1;
+        val type = launch {
+            suspend{printMessage("| Welcome to: Math Problem Solver |")}
+        }
+
+        type.join()
+        i += 1
         if (op.createOperators() == "+") {
 
             println("What is: $num1 + $num2")
@@ -23,7 +36,7 @@ fun main() {
 
                 println("Correct: $num1 + $num2 = ${num1 + num2}")
 
-                break;
+                break
             }
 
         }
@@ -38,12 +51,12 @@ fun main() {
             if (result == num1 - num2) {
 
                 println("Correct: $num1 - $num2 = ${num1 - num2}")
-                break;
+                break
             }
 
         }
 
-        if (op.createOperators().equals("*")) {
+        if (op.createOperators() == "*s") {
 
             println("What is: $num1 * $num2")
             println("Enter Answer: ")
@@ -53,7 +66,7 @@ fun main() {
             if (result == num1 * num2) {
 
                 println("Correct: $num1 * $num2 = ${num1 * num2}")
-                break;
+                break
             }
 
         }
