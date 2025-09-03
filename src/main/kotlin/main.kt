@@ -1,12 +1,21 @@
-﻿import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+﻿import kotlinx.coroutines.runBlocking
 import number.Numbers
 import operators.Operators
 
-suspend fun printMessage(message: String) {
-    delay(5000L)
-    println(message)
+
+open class Message()
+
+class PrintedMessages : Message(){
+
+    fun printMessage(userMessage: Any) {
+        println(userMessage)
+    }
+
+}
+
+fun createdMessageUser(message: PrintedMessages) {
+
+    message.printMessage("| Welcome to Math Application |")
 }
 
 fun main() = runBlocking {
@@ -20,11 +29,9 @@ fun main() = runBlocking {
     var i = 0
     while (true) {
 
-        val type = launch {
-            suspend{printMessage("| Welcome to: Math Problem Solver |")}
-        }
+        val printMessages = PrintedMessages()
+        createdMessageUser(printMessages)
 
-        type.join()
         i += 1
         if (op.createOperators() == "+") {
 
